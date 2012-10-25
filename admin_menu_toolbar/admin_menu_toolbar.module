@@ -75,12 +75,24 @@ function admin_menu_toolbar_admin_menu_output_build(&$content) {
     // @todo Links may contain .active-trail classes.
     '#pre_render' => array('shortcut_toolbar_pre_render'),
   );
+  
+  // Add toolbar toggle.
+  $content['toolbar-toggle'] = array(
+    '#weight' => -300,
+    '#type' => 'link',
+    '#title' => t('Hide'),
+    '#href' => '',
+    '#options' => array(
+      'attributes' => array('class' => 'toolbar-toggle', 'title' => t('Hide'))
+    ),
+  );
 }
 
 /**
  * Implements hook_admin_menu_output_alter().
  */
 function admin_menu_toolbar_admin_menu_output_alter(&$content) {
+
   // Add a class to top-level items for styling.
   foreach (element_children($content['menu']) as $link) {
     $content['menu'][$link]['#attributes']['class'][] = 'admin-menu-toolbar-category';
@@ -94,5 +106,6 @@ function admin_menu_toolbar_admin_menu_output_alter(&$content) {
   // Alter user account link.
   $content['user']['account']['#title'] = t('Hello <strong>@username</strong>', array('@username' => $content['user']['account']['#title']));
   $content['user']['account']['#options']['html'] = TRUE;
+	
 }
 

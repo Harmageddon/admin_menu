@@ -50,6 +50,46 @@ Drupal.admin.behaviors.shortcutToggle = function (context, settings, $adminMenu)
 };
 
 /**
+ * Toggles the toolbar.
+ */
+Drupal.admin.behaviors.toolbarToggle = function (context, settings, $adminMenu) {
+  if (!$adminMenu.length) {
+    return;
+  }
+  var storage = window.localStorage || false;
+  var storageKey = 'Drupal.admin_menu.hideToolbar';
+  var $body = $(context).find('body');
+  var $toggle = $adminMenu.find('.toolbar-toggle');
+  $toggle.click(function (event, loading) {
+    var hide = $body.hasClass('admin-menu');
+    if(hide) {
+      if(loading) {
+        $adminMenu.hide();
+      }
+      else {
+        $adminMenu.hide('slide', {direction: "up"});
+      }
+      var $toggleClosed = $toggle.clone(true);
+      $toggleClosed.toggleClass('closed', true);
+      $toggleClosed.attr('title', Drupal.t('Show'));
+      $toggleClosed.appendTo($body);
+    }
+    else {
+      $adminMenu.show('slide', {direction: "up"});
+      $(this).remove();
+    }
+    $body.toggleClass('admin-menu', !hide);
+    // Persist toggle state across requests.
+    storage && hide ? storage.setItem(storageKey, 1) : storage.removeItem(storageKey);
+    return false;
+  });
+
+  if (!storage || storage.getItem(storageKey)) {
+    $toggle.trigger('click', true);
+  }
+};
+
+/**
  * @} End of "ingroup admin_behaviors".
  */
 

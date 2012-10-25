@@ -144,3 +144,39 @@ body div#toolbar {
   display: block;
 }
 
+/**
+ * Toolbar toggle.
+ */
+.toolbar-toggle,
+#admin-menu .toolbar-toggle {
+  cursor: pointer;
+  background-image: url('../images/toolbar_toggle.png');
+  background-color: #aaa;
+  background-repeat: no-repeat;
+  text-indent: -9999px;
+  overflow: hidden;
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+#admin-menu .toolbar-toggle {
+  float: left;
+  margin: 0 5px;
+  background-position: 0 0;
+  border-radius: 5px;
+  box-shadow: 0 0 5px #555 inset;
+}
+#admin-menu .toolbar-toggle:hover {
+  box-shadow: 0 0 5px #333 inset;
+}
+.toolbar-toggle.closed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 0;
+  box-shadow: 0 0 5px #333;
+  border-right: 1px solid #555;
+  border-bottom: 1px solid #555;
+  background-position: -20px 0;
+  border-bottom-right-radius: 5px;
+}
